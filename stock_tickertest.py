@@ -5,24 +5,9 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import pandas as pd
 import pygame
+import urllib
 
-
-
-pygame.init()
-X = 480
-Y = 320
-
-infoObject = pygame.display.Info()
-display_surface = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-font = pygame.font.Font('Bebas-Regular.otf', 40, bold=True)
-font_date  = pygame.font.Font('Bebas-Regular.otf', 30, bold=True)
-
-# colors
-white = (255, 255, 255)
-red = (255, 0, 0)
-green = (0, 255, 0)
-black = (0, 0, 0)
-grey = (220, 220, 220)
+internet = False
 
 
 def tickers():
@@ -31,9 +16,9 @@ def tickers():
         day_end = False
         # ticker1
         current_hour = datetime.today().hour
-        current_hr_min  = str((datetime.today().strftime("%I:%M")))
-        
-        if current_hour >= 16 or  current_hr_min <= "09:29":
+        current_hr_min = str((datetime.today().strftime("%I:%M")))
+
+        if current_hour >= 16 or current_hr_min <= "09:29":
             day_end = True
 
         symbol = '^DJI'
@@ -92,7 +77,7 @@ def tickers():
             price3 = float(tickerDF3.iloc[-1]['Close'])
         else:
             price3 = float(tickerDF_yesterday3.iloc[-1]['Close'])
-            
+
         open_3 = float(tickerDF_yesterday3.iloc[0]['Close'])
 
         change_3 = float((price3 / open_3) - 1)
@@ -105,7 +90,7 @@ def tickers():
             ourColor3 = green
         else:
             ourColor3 = red
-        
+
         if price - open_ > 0:
             plus = '+'
         else:
@@ -118,7 +103,7 @@ def tickers():
             plus3 = '+'
         else:
             plus3 = ''
-            
+
         # displaying rendering, placement on the screen
         stockname = font.render('DJIA' + '    ' + ("{:.2f}".format(price)),
                                 True, white)
@@ -155,21 +140,14 @@ def tickers():
         textRect3 = text3.get_rect()
         textRect3.center = (infoObject.current_w / 2,
                             infoObject.current_h / 2 + 60)
-                            
+
         today = str(datetime.today().strftime("%B %d, %Y - %I:%M%p"))
-		
-        text4 = font_date.render(
-            today,
-            True, grey)
+
+        text4 = font_date.render(today, True, grey)
         textRect4 = text4.get_rect()
         textRect4.center = (infoObject.current_w / 2,
                             infoObject.current_h / 2 + 300)
 
-       
-       
-       
-       
-       
         #loop to display all texts
         if i > 0:
             display_surface.fill(black)
@@ -179,21 +157,50 @@ def tickers():
             display_surface.blit(text2, textRect2)
             display_surface.blit(stockname3, stocknameRect3)
             display_surface.blit(text3, textRect3)
-            display_surface.blit(text4,textRect4)
-            
-          
+            display_surface.blit(text4, textRect4)
+
             for event in pygame.event.get():
-				
-                if event.type ==  pygame.QUIT:
+
+                if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                    
-               
-                    
+
             pygame.display.update()
             i += 1
-        pygame.time.wait(60) # 1 second = 1000 
+        pygame.time.wait(60)  # 1 second = 1000
         #https://stackoverflow.com/questions/51411713/pygame-time-wait-crashes-the-program
 
 
-tickers()
+def connected(host='http://google.com'):
+    try:
+        urllib.request.urlopen(host)
+        return True
+    except:
+        return False
+
+
+while internet == False:
+
+    connected = connected()
+    if connected == True:
+        pygame.init()
+        X = 480
+        Y = 320
+
+        infoObject = pygame.display.Info()
+        display_surface = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        font = pygame.font.Font('Bebas-Regular.otf', 40, bold=True)
+        font_date = pygame.font.Font('Bebas-Regular.otf', 30, bold=True)
+
+        # colors
+        white = (255, 255, 255)
+        red = (255, 0, 0)
+        green = (0, 255, 0)
+        black = (0, 0, 0)
+        grey = (220, 220, 220)
+        internet = True
+        tickers()
+
+    else:
+        #sleep for 5 minutes and check internet again
+        time.sleep(300)
