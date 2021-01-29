@@ -118,48 +118,49 @@ def tickers():
             plus3 = ''
 
         # displaying rendering, placement on the screen
+        #old spacing was -80, -40, -180, -140, +20, +60
         stockname = font.render(
             stocknameinput1 + '    ' + ("{:.2f}".format(price)), True, white)
         stocknameRect = stockname.get_rect()
         stocknameRect.center = (infoObject.current_w / 2,
-                                infoObject.current_h / 2 - 80)
+                                infoObject.current_h / 2 - 200)
         text = font.render(
             '(' + plus + str(o_ch) + '  ,  ' + plus + percent_change + ')',
             True, ourColor)
         textRect = text.get_rect()
         textRect.center = (infoObject.current_w / 2,
-                           infoObject.current_h / 2 - 40)
+                           infoObject.current_h / 2 - 125)
 
         stockname2 = font.render(
             stocknameinput2 + '    ' + ("{:.2f}".format(price2)), True, white)
         stocknameRect2 = stockname2.get_rect()
         stocknameRect2.center = (infoObject.current_w / 2,
-                                 infoObject.current_h / 2 - 180)
+                                 infoObject.current_h / 2 - 30)
         text2 = font.render(
             '(' + plus2 + str(o_ch2) + '  ,  ' + plus2 + percent_change2 + ')',
             True, ourColor2)
         textRect2 = text2.get_rect()
         textRect2.center = (infoObject.current_w / 2,
-                            infoObject.current_h / 2 - 140)
+                            infoObject.current_h / 2 + 45)
 
         stockname3 = font.render(
             stocknameinput3 + '    ' + ("{:.2f}".format(price3)), True, white)
         stocknameRect3 = stockname3.get_rect()
         stocknameRect3.center = (infoObject.current_w / 2,
-                                 infoObject.current_h / 2 + 20)
+                                 infoObject.current_h / 2 + 140)
         text3 = font.render(
             '(' + plus3 + str(o_ch3) + '  ,  ' + plus3 + percent_change3 + ')',
             True, ourColor3)
         textRect3 = text3.get_rect()
         textRect3.center = (infoObject.current_w / 2,
-                            infoObject.current_h / 2 + 60)
+                            infoObject.current_h / 2 + 215)
 
         today = str(datetime.today().strftime("%B %d, %Y - %I:%M%p"))
 
         text4 = font_date.render(today, True, grey)
         textRect4 = text4.get_rect()
         textRect4.center = (infoObject.current_w / 2,
-                            infoObject.current_h / 2 + 300)
+                            infoObject.current_h / 2 + 500)
 
         #loop to display all texts
         if i > 0:
@@ -207,7 +208,7 @@ while internet == False:
         infoObject = pygame.display.Info()
         display_surface = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         font = pygame.font.Font('Bebas-Regular.otf', font_size, bold=True)
-        font_date = pygame.font.Font('Bebas-Regular.otf', 30, bold=True)
+        font_date = pygame.font.Font('Bebas-Regular.otf', 45, bold=True)
 
         # colors
         white = (255, 255, 255)
