@@ -135,25 +135,25 @@ def tickers():
             stocknameinput2 + '    ' + ("{:.2f}".format(price2)), True, white)
         stocknameRect2 = stockname2.get_rect()
         stocknameRect2.center = (infoObject.current_w / 2,
-                                 infoObject.current_h / 2 - 30)
+                                 infoObject.current_h / 2)
         text2 = font.render(
             '(' + plus2 + str(o_ch2) + '  ,  ' + plus2 + percent_change2 + ')',
             True, ourColor2)
         textRect2 = text2.get_rect()
         textRect2.center = (infoObject.current_w / 2,
-                            infoObject.current_h / 2 + 45)
+                            infoObject.current_h / 2 + 75)
 
         stockname3 = font.render(
             stocknameinput3 + '    ' + ("{:.2f}".format(price3)), True, white)
         stocknameRect3 = stockname3.get_rect()
         stocknameRect3.center = (infoObject.current_w / 2,
-                                 infoObject.current_h / 2 + 140)
+                                 infoObject.current_h / 2 + 200)
         text3 = font.render(
             '(' + plus3 + str(o_ch3) + '  ,  ' + plus3 + percent_change3 + ')',
             True, ourColor3)
         textRect3 = text3.get_rect()
         textRect3.center = (infoObject.current_w / 2,
-                            infoObject.current_h / 2 + 215)
+                            infoObject.current_h / 2 + 275)
 
         today = str(datetime.today().strftime("%B %d, %Y - %I:%M%p"))
 
