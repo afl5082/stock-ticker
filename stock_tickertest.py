@@ -8,6 +8,19 @@ import pygame
 import urllib
 
 internet = False
+font_size = 80
+
+stock1 = '^GSPC'
+stocknameinput1 = 'S&P'
+#'^DIJA'
+
+stock2 = 'GME'
+stocknameinput2 = 'GameStop'
+#'^GSPC'
+
+stock3 = 'AMC'
+stocknameinput3 = 'AMC'
+#'^IXIC'
 
 
 def tickers():
@@ -16,12 +29,12 @@ def tickers():
         day_end = False
         # ticker1
         current_hour = datetime.today().hour
-        current_hr_min = str((datetime.today().strftime("%I:%M")))
+        current_hr_min = str((datetime.today().strftime("%I:%M:%S")))
 
-        if current_hour >= 16 or current_hr_min <= "09:29":
+        if current_hour >= 16 or current_hr_min <= "09:30:15":
             day_end = True
 
-        symbol = '^DJI'
+        symbol = stock1
         tickerData = yf.Ticker(symbol)
         tickerDF = tickerData.history(period='1d', interval='1m')
         tickerDF_yesterday = tickerData.history(period='2d')
@@ -45,7 +58,7 @@ def tickers():
             ourColor = red
         # ticker2
 
-        symbol2 = '^GSPC'
+        symbol2 = stock2
         tickerData2 = yf.Ticker(symbol2)
         tickerDF2 = tickerData2.history(period='1d', interval='1m')
         tickerDF_yesterday2 = tickerData2.history(period='2d')
@@ -68,7 +81,7 @@ def tickers():
         else:
             ourColor2 = red
         # ticker 3
-        symbol3 = '^IXIC'
+        symbol3 = stock3
         tickerData3 = yf.Ticker(symbol3)
         tickerDF3 = tickerData3.history(period='1d', interval='1m')
         tickerDF_yesterday3 = tickerData3.history(period='2d')
@@ -105,8 +118,8 @@ def tickers():
             plus3 = ''
 
         # displaying rendering, placement on the screen
-        stockname = font.render('DJIA' + '    ' + ("{:.2f}".format(price)),
-                                True, white)
+        stockname = font.render(
+            stocknameinput1 + '    ' + ("{:.2f}".format(price)), True, white)
         stocknameRect = stockname.get_rect()
         stocknameRect.center = (infoObject.current_w / 2,
                                 infoObject.current_h / 2 - 80)
@@ -117,8 +130,8 @@ def tickers():
         textRect.center = (infoObject.current_w / 2,
                            infoObject.current_h / 2 - 40)
 
-        stockname2 = font.render('S&P' + '    ' + ("{:.2f}".format(price2)),
-                                 True, white)
+        stockname2 = font.render(
+            stocknameinput2 + '    ' + ("{:.2f}".format(price2)), True, white)
         stocknameRect2 = stockname2.get_rect()
         stocknameRect2.center = (infoObject.current_w / 2,
                                  infoObject.current_h / 2 - 180)
@@ -129,8 +142,8 @@ def tickers():
         textRect2.center = (infoObject.current_w / 2,
                             infoObject.current_h / 2 - 140)
 
-        stockname3 = font.render('NASDAQ' + '    ' + ("{:.2f}".format(price3)),
-                                 True, white)
+        stockname3 = font.render(
+            stocknameinput3 + '    ' + ("{:.2f}".format(price3)), True, white)
         stocknameRect3 = stockname3.get_rect()
         stocknameRect3.center = (infoObject.current_w / 2,
                                  infoObject.current_h / 2 + 20)
@@ -164,6 +177,10 @@ def tickers():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        return
 
             pygame.display.update()
             i += 1
@@ -189,7 +206,7 @@ while internet == False:
 
         infoObject = pygame.display.Info()
         display_surface = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        font = pygame.font.Font('Bebas-Regular.otf', 40, bold=True)
+        font = pygame.font.Font('Bebas-Regular.otf', font_size, bold=True)
         font_date = pygame.font.Font('Bebas-Regular.otf', 30, bold=True)
 
         # colors
