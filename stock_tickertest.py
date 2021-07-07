@@ -162,7 +162,7 @@ def tickers():
         textRect4.center = (infoObject.current_w / 2,
                             infoObject.current_h / 2 + 500)
 
-        #loop to display all texts
+        #loop to display all text
         if i > 0:
             display_surface.fill(black)
             display_surface.blit(stockname, stocknameRect)
